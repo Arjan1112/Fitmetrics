@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitMetrics SaaS (Testbed)</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">FM</div>
+      <div>
+        <h1>FitMetrics</h1>
+        <p class="subtitle">Cloud testbed SaaS: REST API + Web client</p>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="pill">Build: {{ build_time }}</div>
+      <div class="pill"><a href="/health" target="_blank" rel="noreferrer">/health</a></div>
+      <div class="pill"><a href="#api">API</a></div>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>BMI Calculator</h2>
+      <div class="row">
+        <label>Height (cm)</label>
+        <input id="bmi_height" type="number" step="0.1" value="175">
+      </div>
+      <div class="row">
+        <label>Weight (kg)</label>
+        <input id="bmi_weight" type="number" step="0.1" value="70">
+      </div>
+      <button onclick="calcBMI()">Calculate BMI</button>
+      <pre id="bmi_out" class="out">—</pre>
+    </section>
+
+    <section class="card">
+      <h2>BMR + TDEE</h2>
+      <div class="row">
+        <label>Sex</label>
+        <select id="bmr_sex">
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Age (years)</label>
+        <input id="bmr_age" type="number" step="1" value="27">
+      </div>
+      <div class="row">
+        <label>Height (cm)</label>
+        <input id="bmr_height" type="number" step="0.1" value="175">
+      </div>
+      <div class="row">
+        <label>Weight (kg)</label>
+        <input id="bmr_weight" type="number" step="0.1" value="70">
+      </div>
+      <div class="row">
+        <label>Activity</label>
+        <select id="bmr_activity">
+          <option value="sedentary">sedentary</option>
+          <option value="light">light</option>
+          <option value="moderate" selected>moderate</option>
+          <option value="active">active</option>
+          <option value="very_active">very_active</option>
+        </select>
+      </div>
+      <button onclick="calcBMR()">Calculate</button>
+      <pre id="bmr_out" class="out">—</pre>
+    </section>
+
+    <section class="card">
+      <h2>Waist-to-Height Ratio</h2>
+      <div class="row">
+        <label>Waist (cm)</label>
+        <input id="whtr_waist" type="number" step="0.1" value="82">
+      </div>
+      <div class="row">
+        <label>Height (cm)</label>
+        <input id="whtr_height" type="number" step="0.1" value="175">
+      </div>
+      <button onclick="calcWHtR()">Calculate</button>
+      <pre id="whtr_out" class="out">—</pre>
+    </section>
+
+    <section class="card">
+      <h2>Length Converter</h2>
+      <div class="row">
+        <label>Value</label>
+        <input id="len_value" type="number" step="0.001" value="12">
+      </div>
+      <div class="row">
+        <label>From</label>
+        <select id="len_from">
+          <option value="cm">cm</option>
+          <option value="m">m</option>
+          <option value="inch" selected>inch</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>To</label>
+        <select id="len_to">
+          <option value="cm" selected>cm</option>
+          <option value="m">m</option>
+          <option value="inch">inch</option>
+          <option value="ft">ft</option>
+        </select>
+      </div>
+      <button onclick="convLength()">Convert</button>
+      <pre id="len_out" class="out">—</pre>
+    </section>
+
+    <section class="card wide" id="api">
+      <h2>API quick reference</h2>
+      <div class="api">
+        <div class="endpoint">
+          <code>POST /api/bmi</code>
+          <span class="muted">{ "height_cm": 175, "weight_kg": 70 }</span>
+        </div>
+        <div class="endpoint">
+          <code>POST /api/bmr</code>
+          <span class="muted">{ "sex": "male", "age_years": 27, "height_cm": 175, "weight_kg": 70, "activity_level": "moderate" }</span>
+        </div>
+        <div class="endpoint">
+          <code>POST /api/whtr</code>
+          <span class="muted">{ "waist_cm": 82, "height_cm": 175 }</span>
+        </div>
+        <div class="endpoint">
+          <code>POST /api/convert/length</code>
+          <span class="muted">{ "value": 12, "from": "inch", "to": "cm" }</span>
+        </div>
+      </div>
+      <p class="note">
+        Tip: Use <strong>Postman</strong> or <strong>curl</strong> to test the API in addition to this web client.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>FitMetrics is a coursework testbed. Calculations are for educational use only.</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
